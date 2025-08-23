@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -28,5 +29,12 @@ public class CateroryService {
 //            listDTO.add(new CategoryDTO(category));
 //        }
 //        return listDTO;
+    }
+
+
+    public CategoryDTO findById(Long id) {
+        Optional<Category> obj = repository.findById(id);
+        Category entity = obj.get();
+        return new CategoryDTO(entity);
     }
 }

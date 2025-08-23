@@ -5,6 +5,7 @@ import br.tec.itlabs.dscatalog.entities.Category;
 import br.tec.itlabs.dscatalog.services.CateroryService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,5 +26,11 @@ public class CategoryResources  {
     public ResponseEntity<List<CategoryDTO>> findAll() {
         List<CategoryDTO> list = cateroryService.findAll();
         return ResponseEntity.ok().body(list);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<CategoryDTO> findById(@PathVariable Long id) {
+        CategoryDTO dto = cateroryService.findById(id);
+        return ResponseEntity.ok().body(dto);
     }
 }
