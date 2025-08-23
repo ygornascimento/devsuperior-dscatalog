@@ -1,6 +1,7 @@
 package br.tec.itlabs.dscatalog.resources;
 
 import br.tec.itlabs.dscatalog.entities.Category;
+import br.tec.itlabs.dscatalog.services.CateroryService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,12 +14,15 @@ import java.util.List;
 @RequestMapping(value = "/categories")
 public class CategoryResources  {
 
+    private final CateroryService cateroryService;
+
+    public CategoryResources(CateroryService cateroryService) {
+        this.cateroryService = cateroryService;
+    }
+
     @GetMapping
     public ResponseEntity<List<Category>> findAll() {
-        List<Category> list = new ArrayList<>();
-        list.add(new Category(1L, "Books"));
-        list.add(new Category(2L, "Electronics"));
-
+        List<Category> list = cateroryService.findAll();
         return ResponseEntity.ok().body(list);
     }
 }
