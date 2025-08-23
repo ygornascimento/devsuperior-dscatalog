@@ -1,5 +1,6 @@
 package br.tec.itlabs.dscatalog.resources;
 
+import br.tec.itlabs.dscatalog.dto.CategoryDTO;
 import br.tec.itlabs.dscatalog.entities.Category;
 import br.tec.itlabs.dscatalog.services.CateroryService;
 import org.springframework.http.ResponseEntity;
@@ -21,8 +22,8 @@ public class CategoryResources  {
     }
 
     @GetMapping
-    public ResponseEntity<List<Category>> findAll() {
-        List<Category> list = cateroryService.findAll();
+    public ResponseEntity<List<CategoryDTO>> findAll() {
+        List<CategoryDTO> list = cateroryService.findAll();
         return ResponseEntity.ok().body(list);
     }
 }
