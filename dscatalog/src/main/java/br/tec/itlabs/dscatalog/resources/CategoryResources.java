@@ -49,4 +49,10 @@ public class CategoryResources  {
         dto = cateroryService.update(id, dto);
         return ResponseEntity.ok().body(dto);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        cateroryService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
 }

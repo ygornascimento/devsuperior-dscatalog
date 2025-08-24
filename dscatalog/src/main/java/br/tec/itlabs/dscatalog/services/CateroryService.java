@@ -3,9 +3,11 @@ package br.tec.itlabs.dscatalog.services;
 import br.tec.itlabs.dscatalog.dto.CategoryDTO;
 import br.tec.itlabs.dscatalog.entities.Category;
 import br.tec.itlabs.dscatalog.repository.CategoryRepository;
+import br.tec.itlabs.dscatalog.services.exceptions.DatabaseException;
 import br.tec.itlabs.dscatalog.services.exceptions.ResourceNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -58,4 +60,18 @@ public class CateroryService {
             throw new ResourceNotFoundException("Id not found " + id);
         }
     }
+
+    @Transactional
+    public void delete(Long id) {
+        if (!repository.existsById(id)) {
+            throw new ResourceNotFoundException("Recurso não encontrado.");
+        }
+        try {
+            repository.deleteById(id);
+        }
+        catch (DataIntegrityViolationException e) {
+            throw new DatabaseException("Falha de integridade referencial.");
+        }
+    }
+
 }
