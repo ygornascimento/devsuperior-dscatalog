@@ -8,11 +8,10 @@ import br.tec.itlabs.dscatalog.services.exceptions.ResourceNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class CateroryService {
@@ -23,9 +22,9 @@ public class CateroryService {
         this.repository = repository;
     }
 
-    public List<CategoryDTO> findAll() {
-        List<Category> list = repository.findAll();
-        return list.stream().map(x -> new CategoryDTO(x)).collect(Collectors.toList());
+    public Page<CategoryDTO> findAllPaged(PageRequest pageRequest) {
+        Page<Category> list = repository.findAll(pageRequest);
+        return list.map(x -> new CategoryDTO(x));
 
 //        List<CategoryDTO> listDTO = new ArrayList<>();
 //        for (Category category: list) {
