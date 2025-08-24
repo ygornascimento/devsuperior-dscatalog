@@ -3,6 +3,7 @@ package br.tec.itlabs.dscatalog.services;
 import br.tec.itlabs.dscatalog.dto.CategoryDTO;
 import br.tec.itlabs.dscatalog.entities.Category;
 import br.tec.itlabs.dscatalog.repository.CategoryRepository;
+import br.tec.itlabs.dscatalog.services.exceptions.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -34,7 +35,7 @@ public class CateroryService {
 
     public CategoryDTO findById(Long id) {
         Optional<Category> obj = repository.findById(id);
-        Category entity = obj.get();
+        Category entity = obj.orElseThrow(() -> new EntityNotFoundException("Entity not found..."));
         return new CategoryDTO(entity);
     }
 }
