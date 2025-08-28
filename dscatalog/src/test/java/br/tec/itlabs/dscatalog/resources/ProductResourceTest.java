@@ -3,6 +3,7 @@ package br.tec.itlabs.dscatalog.resources;
 import br.tec.itlabs.dscatalog.Factory.ProductFactory;
 import br.tec.itlabs.dscatalog.dto.ProductDTO;
 import br.tec.itlabs.dscatalog.services.ProductService;
+import br.tec.itlabs.dscatalog.services.exceptions.DatabaseException;
 import br.tec.itlabs.dscatalog.services.exceptions.ResourceNotFoundException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,7 +20,7 @@ import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -29,6 +30,7 @@ public class ProductResourceTest {
 
     private long existingId;
     private long unExistId;
+    private long dependentId;
 
     @Autowired
     private MockMvc mockMvc;
@@ -46,6 +48,7 @@ public class ProductResourceTest {
     void init() {
         existingId = 1L;
         unExistId = 2L;
+        dependentId = 3L;
 
         productDTO = ProductFactory.crateProductDTO();
         page = new PageImpl<>(List.of(productDTO));
@@ -56,6 +59,10 @@ public class ProductResourceTest {
 
         when(service.update(eq(existingId), any())).thenReturn(productDTO);
         when(service.update(eq(unExistId), any())).thenThrow(ResourceNotFoundException.class);
+
+        doNothing().when(service).delete(existingId);
+        doThrow(ResourceNotFoundException.class).when(service).delete(unExistId);
+        doThrow(DatabaseException.class).when(service).delete(dependentId);
     }
 
     @Test
