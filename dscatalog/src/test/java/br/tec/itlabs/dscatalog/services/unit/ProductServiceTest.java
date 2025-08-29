@@ -1,16 +1,15 @@
-package br.tec.itlabs.dscatalog.services;
+package br.tec.itlabs.dscatalog.services.unit;
 
 import br.tec.itlabs.dscatalog.Factory.ProductFactory;
 import br.tec.itlabs.dscatalog.dto.ProductDTO;
 import br.tec.itlabs.dscatalog.entities.Product;
 import br.tec.itlabs.dscatalog.repository.ProductRepository;
+import br.tec.itlabs.dscatalog.services.ProductService;
 import br.tec.itlabs.dscatalog.services.exceptions.DatabaseException;
 import br.tec.itlabs.dscatalog.services.exceptions.ResourceNotFoundException;
-import org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.platform.engine.support.hierarchical.ThrowableCollector;
 import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;

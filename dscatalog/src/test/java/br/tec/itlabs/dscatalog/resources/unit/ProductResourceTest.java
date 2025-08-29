@@ -1,7 +1,8 @@
-package br.tec.itlabs.dscatalog.resources;
+package br.tec.itlabs.dscatalog.resources.unit;
 
 import br.tec.itlabs.dscatalog.Factory.ProductFactory;
 import br.tec.itlabs.dscatalog.dto.ProductDTO;
+import br.tec.itlabs.dscatalog.resources.ProductResources;
 import br.tec.itlabs.dscatalog.services.ProductService;
 import br.tec.itlabs.dscatalog.services.exceptions.DatabaseException;
 import br.tec.itlabs.dscatalog.services.exceptions.ResourceNotFoundException;
